@@ -30,9 +30,41 @@ You can run the image now with
 docker run --detach --publish 7200:7200 ontotext/graphdb:9.4.0-free
 ```
 
-Now visit <http://localhost:7200/>
 Consult the docker hub documentation for more information.
 
+## Upload to GitHub Package Registry
+
+This section is custom to this fork of [`Ontotext-AD/graphdb-docker`](https://github.com/Ontotext-AD/graphdb-docker).
+
+```bash
+# tag image for GitHub Package Registry
+docker tag \
+  ontotext/graphdb:9.4.0-free \
+  docker.pkg.github.com/dhimmel/graphdb-docker/ontotext-graphdb:9.4.0-free
+
+# push to docker
+docker push docker.pkg.github.com/dhimmel/graphdb-docker/ontotext-graphdb:9.4.0-free
+```
+
+See all packages at <https://github.com/dhimmel/graphdb-docker/packages/>.
+
+## Run container
+
+```bash
+# create container from Package Regsitry image (only run first time)
+docker container create \
+  --name=ontotext-graphdb \
+  --publish 7200:7200 \
+  docker.pkg.github.com/dhimmel/graphdb-docker/ontotext-graphdb:9.4.0-free
+
+# start container
+docker start ontotext-graphdb
+
+# stop container
+docker stop ontotext-graphdb
+```
+
+Now visit <http://localhost:7200/>
 
 # Issues
 
